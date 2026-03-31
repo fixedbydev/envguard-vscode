@@ -1,0 +1,60 @@
+{
+  "name": "envguard",
+  "displayName": "EnvGuard",
+  "description": "Validate environment variables against Zod schema — diagnostics, IntelliSense, and commands",
+  "version": "0.1.0",
+  "publisher": "stacklance",
+  "license": "MIT",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": ["Linters", "Other"],
+  "keywords": ["env", "environment", "dotenv", "validation", "zod"],
+  "activationEvents": [
+    "workspaceContains:.env",
+    "workspaceContains:env.schema.ts"
+  ],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "commands": [
+      { "command": "envguard.runDoctor", "title": "EnvGuard: Run Doctor" },
+      { "command": "envguard.syncExample", "title": "EnvGuard: Sync .env.example" },
+      { "command": "envguard.showDashboard", "title": "EnvGuard: Show Dashboard" }
+    ],
+    "configuration": {
+      "title": "EnvGuard",
+      "properties": {
+        "envguard.schemaPath": {
+          "type": "string",
+          "default": "./env.schema.ts",
+          "description": "Path to the Zod schema file"
+        },
+        "envguard.envPath": {
+          "type": "string",
+          "default": ".env",
+          "description": "Path to the .env file"
+        },
+        "envguard.autoRun": {
+          "type": "boolean",
+          "default": true,
+          "description": "Run audit automatically on file save"
+        },
+        "envguard.maskValues": {
+          "type": "boolean",
+          "default": false,
+          "description": "Mask sensitive values in .env editor"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "build": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "package": "npx @vscode/vsce package"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.85.0",
+    "@types/node": "^20.11.0",
+    "typescript": "^5.4.0"
+  }
+}
